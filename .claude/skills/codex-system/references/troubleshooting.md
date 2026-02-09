@@ -76,3 +76,12 @@ codex sessions show {SESSION_ID}
 1. 対象ファイルを絞る
 2. 段階的に分析
 3. `--config context_limit=...` で調整
+
+<!--
+# トラブルシューティング
+
+英語の見出しや用語は以下の意味:
+- Troubleshooting: トラブルシューティング
+- Context limit: コンテキスト上限
+内容は、エラー時の対処や大規模コードベースの扱い方を示す。
+-->

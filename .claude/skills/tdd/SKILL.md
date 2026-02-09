@@ -113,3 +113,11 @@ uv run pytest --cov={module} --cov-report=term-missing
 - Keep each cycle **small**
 - Refactor **after** tests pass
 - Prioritize **working code** over perfection
+
+<!--
+name: tdd
+description: テスト駆動開発の実践ガイド。
+
+概要: Red/Green/Refactor のサイクルで進め、最小のテスト→実装→リファクタを繰り返す。
+テストは先に書き、サイクルは小さく、テストが通ってから改善する。
+-->

@@ -382,3 +382,46 @@ tmux kill-session -t <session-name>
 - [Claude Opus 4.6 Agent Teams Tutorial | NxCode](https://www.nxcode.io/resources/news/claude-agent-teams-parallel-ai-development-guide-2026)
 - [Claude Code's Hidden Multi-Agent System | Paddo.dev](https://paddo.dev/blog/claude-code-hidden-swarm/)
 - [Anthropic Documentation - Subagents](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
+
+<!--
+# Agent Teams 機能 調査（日本語訳）
+
+本ドキュメントは Claude Code の Agent Teams 機能の概要、構成、設定方法、運用上の注意点をまとめた調査。
+
+## 1. Agent Teams とは
+
+複数の Claude Code インスタンスが協働する仕組み。Lead がチーム作成と調整を行い、
+Teammate は独立したコンテキストで作業する。サブエージェントと異なり直接メッセージ可能。
+
+## 2. アーキテクチャ
+
+Team Lead / Teammates / Task List / Mailbox で構成され、タスク状態・依存関係・クレーム機構・割り当て方法を持つ。
+
+## 3. 設定と有効化
+
+環境変数または settings.json で有効化。端末表示モード（In-Process / tmux）も説明。
+
+## 4. 使い方と運用
+
+チーム作成、タスク割り当て、進捗通知、ブロードキャスト、停止手順など。
+
+## 5. 推奨パターン
+
+研究・設計・実装・レビューの役割分担、タスク粒度、依存関係の扱い方。
+
+## 6. 注意点
+
+コスト増（複数インスタンスのトークン消費）、競合回避、通知過多の抑制、運用ルールの重要性。
+
+## 7. 既知の制約
+
+実験機能であること、UI/操作上の制限、ログや設定ファイルの保存場所。
+
+## 8. トラブルシューティング
+
+表示や通信の問題に対する対処の整理。
+
+## 9. シグナルとエスカレーション
+
+想定以上の複雑化、ブロッカー、スコープ変更、技術方針転換が起きたらエスカレーション。
+-->

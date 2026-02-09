@@ -76,3 +76,53 @@ Claude Code Orchestra is a multi-agent collaboration framework that orchestrates
 |------|---------|
 | 2026-02-08 | Major redesign for Opus 4.6: 1M context, Agent Teams, skill pipeline |
 | | Initial |
+
+<!--
+# プロジェクト設計ドキュメント
+
+> この文書は会話で行われた設計判断を記録する。`design-tracker` スキルで自動更新される。
+
+## 概要
+
+Claude Code Orchestra は、Claude Code（1Mコンテキスト）、Codex CLI（深い推論）、Gemini CLI（外部調査+マルチモーダル）を連携させるマルチエージェント協働フレームワーク。Opus 4.6ではAgent Teamsで並列作業を行う。
+
+## アーキテクチャ
+
+Claude Code Lead がオーケストレーションを担い、Agent Teams（並列+通信）とSubagents（隔離+結果返却）、外部CLI（Codex/Gemini）を組み合わせる構成。
+
+## 実装計画
+
+### パターンとアプローチ
+
+- Agent Teams: `/startproject`、`/team-implement`、`/team-review` のフローで並列協働
+- Subagents: チームが不要な場合の隔離タスク
+- Skill Pipeline: 計画→実装→レビューの分離
+
+### ライブラリと役割
+
+- Codex CLI: 設計、デバッグ、トレードオフの深い推論
+- Gemini CLI: 外部情報取得、マルチモーダル分析
+
+### 主要な意思決定
+
+- コードベース分析はClaudeが直接行う（1Mコンテキスト）
+- Geminiは外部情報取得とマルチモーダルに特化
+- /startproject を3スキルに分割
+- Agent Teams を研究↔設計、並列実装に活用
+- サブエージェントの閾値を緩和
+
+## TODO
+
+- gemini/codex system スキルを新ルールに更新
+- Agent TeamsのE2E検証
+- gemini-exploreの整理検討
+- Agent Teams向けフック更新
+
+## 未解決の問い
+
+チームサイズや /team-review の必須性、長時間セッションでのCompactionなど。
+
+## 変更履歴
+
+2026-02-08: Opus 4.6向け大幅再設計、初期作成。
+-->

@@ -125,3 +125,18 @@ Create new tasks or consult Codex again when:
 2. **Blocker discovered** — Dependency on unfinished work
 3. **Scope change** — User adds new requirements
 4. **Technical pivot** — Chosen approach doesn't work
+
+<!--
+# タスクパターン参照
+
+この文書はタスクの分割、優先度、進捗管理に関するパターン例を示す。
+英語見出しや箇条書きは以下の意味：
+
+- Task Patterns: タスクパターン
+- Signals: 兆候
+- Escalation: エスカレーション条件
+- Unexpected complexity: 想定以上の複雑さ
+- Blocker discovered: ブロッカーの発見
+- Scope change: スコープ変更
+- Technical pivot: 技術方針の転換
+-->

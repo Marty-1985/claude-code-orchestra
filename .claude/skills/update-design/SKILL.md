@@ -61,3 +61,49 @@ Always add to Changelog:
 - User communication: Japanese
 
 If $ARGUMENTS provided, focus on recording that content.
+
+<!--
+name: update-design
+description: 現在の会話内容に基づき DESIGN.md を明示的に更新する。設計ドキュメントを強制更新したいときに使う。
+disable-model-invocation: true
+
+# 設計ドキュメント更新
+
+会話内容から設計/実装の意思決定を `.claude/docs/DESIGN.md` に記録・更新する。
+
+> **注**: `design-tracker` スキルと同じワークフローを明示的に実行する。
+
+## ワークフロー
+
+1. 既存の DESIGN.md を読む
+2. 会話から意思決定/情報を抽出する
+3. 該当セクションを更新する
+4. 今日の日付で Changelog に追記する
+
+## セクション対応表
+
+| 話題 | セクション |
+|------|------------|
+| 目的・狙い | Overview |
+| 構造・構成要素 | Architecture |
+| 設計パターン | Implementation Plan > Patterns |
+| ライブラリ選択 | Implementation Plan > Libraries |
+| 決定理由 | Implementation Plan > Key Decisions |
+| 今後の作業 | TODO |
+| 未解決事項 | Open Questions |
+
+## 更新フォーマット
+
+意思決定を追記する際のテンプレートを示す。
+
+## Changelog 追記
+
+日付ごとに簡潔な記録を追加する。
+
+## 言語
+
+- 文書内容: 技術的には英語、説明は日本語でも可
+- ユーザーへの報告: 日本語
+
+引数 $ARGUMENTS がある場合は、その内容の記録に集中する。
+-->

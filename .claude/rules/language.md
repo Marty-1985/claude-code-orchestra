@@ -24,3 +24,32 @@
 
 - Technical documentation: English
 - User-facing documentation (README, etc.): Japanese is acceptable
+
+<!--
+# 言語ルール
+
+## 思考と推論
+
+- 常に英語で思考・推論する
+- 内部の分析、計画、問題解決は英語で行う
+- コードコメント、変数名、関数名、docstringは英語
+
+## ユーザー対応
+
+- ユーザーへの返答は常に日本語
+- 説明、質問、ステータス更新は日本語
+- ユーザーに見せるエラーメッセージも日本語
+
+## コード
+
+- すべて英語で書く
+  - 変数名: `user_count` のように英語
+  - 関数名: `calculate_total()` など英語
+  - コメント: `# Check if valid` のように英語
+  - docstring: 英語で説明
+
+## ドキュメント
+
+- 技術文書は英語
+- ユーザー向け文書（READMEなど）は日本語可
+-->

@@ -167,3 +167,11 @@ Free tier (personal Google account):
 - 1,000 requests/day
 
 Plan accordingly for large research tasks.
+
+<!--
+# ユースケース
+
+この参照はGemini CLIの用途と注意点をまとめたもの。
+英語部分は、無料枠の制限（毎分/毎日のリクエスト数）と、
+大規模な調査では制限を考慮して計画する必要があることを示す。
+-->

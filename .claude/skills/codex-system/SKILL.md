@@ -154,3 +154,12 @@ See: `references/refactoring-task.md`
 - **Code expertise**: Implementation strategies and patterns
 - **Consistency**: Same project context via `context-loader` skill
 - **Parallel work**: Background execution or Agent Teams teammate
+
+<!--
+name: codex-system
+description: Codex CLI の利用指針。深い推論と設計/実装の助言を得る。
+
+概要: Codex の役割、呼び出しタイミング、出力の要約方法、並列実行の使い方を示す。
+深い分析、実装パターン提案、`context-loader` による同一コンテキスト維持、
+バックグラウンドやAgent Teamsでの並列実行が特徴。
+-->

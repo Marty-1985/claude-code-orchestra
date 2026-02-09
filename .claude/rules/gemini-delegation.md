@@ -112,3 +112,75 @@ gemini -p "{question}" --output-format json 2>/dev/null
 2. Receive response in **English**
 3. Subagent/Teammate summarizes and saves full output
 4. Main reports to user in **Japanese**
+
+<!--
+# Gemini 委任ルール
+
+**Gemini CLI は外部情報とマルチモーダル処理の専門家。**
+
+## 役割変更（Opus 4.6）
+
+Claude が 1M コンテキストを持つため、コードベース分析は Claude が直接行う。Gemini は外部情報取得とマルチモーダル処理に特化。
+
+## コンテキスト管理
+
+短い質問は直接、ライブラリ調査やマルチモーダル処理はサブエージェント経由、Agent Teams では Teammate が直接呼び出す。
+
+## Gemini について
+
+Gemini CLI が得意なこと：
+- **Google Search 連携** — 最新情報・公式ドキュメント取得
+- **マルチモーダル処理** — 動画/音声/PDF解析
+- **Webリサーチ** — ライブラリ比較、ベストプラクティス、API仕様
+
+**Gemini が得意でないこと**（Claude/Codex を使う）：
+- コードベース分析（Claude）
+- 設計判断（Codex）
+- デバッグ（Codex）
+- 実装（Claude）
+
+## Gemini へ相談するタイミング
+
+1. **外部情報** - 最新ドキュメント、ライブラリ更新、API仕様
+2. **ライブラリ調査** - 比較、ベストプラクティス、既知の問題
+3. **マルチモーダル** - 動画/音声/PDFの内容抽出
+
+### トリガーフレーズ
+
+「調べて」「リサーチして」「PDF/動画/音声を見て」「最新ドキュメント確認」など。
+
+## 相談しない場合
+
+- コードベース分析 → Claude
+- 設計判断 → Codex
+- デバッグ → Codex
+- 実装 → Claude
+- 単純なファイル操作 → Claude
+
+## 相談方法
+
+### Agent Teams
+
+Researcher が Gemini を直接呼び出し、Architect と双方向通信。
+
+### サブエージェントパターン
+
+Taskツールの `prompt` に調査内容を指定し、結果は `.claude/docs/research/{topic}.md` に保存、要約を返す。
+
+### 直接呼び出し
+
+短い質問は `gemini -p` を使う。
+
+## CLIコマンド参照
+
+外部調査、マルチモーダル、JSON出力の例を示す。
+
+**注**: `--include-directories .` は不要（コードベース分析は Claude が担当）。
+
+## 言語プロトコル
+
+1. Geminiへの質問は英語
+2. 応答も英語
+3. サブエージェント/Teammate が要約と保存
+4. ユーザーには日本語で報告
+-->

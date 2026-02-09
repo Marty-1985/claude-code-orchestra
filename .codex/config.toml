@@ -20,3 +20,13 @@ skills = true
 [[skills.config]]
 enabled = true
 path = ".codex/skills/context-loader"
+
+# 日本語訳（コメント）
+# Codex CLI プロジェクト設定
+# - model: デフォルトモデル
+# - model_reasoning_effort: 推論努力レベル
+# - model_reasoning_summary: 推論サマリの詳細度
+# - web_search: Web検索の有効化
+# - approval_policy: 承認ポリシー
+# - features.skills: スキル機能の有効化
+# - skills.config: プロジェクトスキルの有効化とパス

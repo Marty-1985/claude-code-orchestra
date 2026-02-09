@@ -73,3 +73,39 @@ Break into small steps:
 - Include verification method for each step
 - Ask questions at planning stage for unclear points
 - Don't over-detail (adjust during implementation)
+
+<!--
+name: plan
+description: 機能やタスクの詳細な実装計画を作る。コーディング前の計画が求められるときに使う。
+disable-model-invocation: true
+
+# 実装計画の作成
+
+$ARGUMENTS に対する実装計画を作成する。
+
+## 計画プロセス
+
+### 1. 要件分析
+
+- **目的**: 何を達成するか
+- **スコープ**: 何を含め、何を除外するか
+- **制約**: 技術・時間・依存関係
+
+### 2. 現状調査
+
+関連コード、影響ファイル、使うライブラリ/パターン、既存テストを確認する。
+
+### 3. 実装ステップ分解
+
+- 各ステップは単独で検証できる
+- 依存順を考慮
+- 高リスクを先に
+
+### 4. 出力フォーマット
+
+目的、スコープ、ステップ、リスク、未解決事項を含むテンプレートを示す。
+
+## 注意
+
+実行可能な粒度で計画し、各ステップの検証方法を含め、曖昧点は質問する。細かすぎる詳細は避ける。
+-->

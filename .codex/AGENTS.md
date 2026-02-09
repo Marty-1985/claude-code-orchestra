@@ -91,3 +91,51 @@ Codex/Gemini への入出力は `.claude/logs/cli-tools.jsonl` に記録され�
 過去の相談内容を確認する場合は、このログを参照してください。
 
 `/checkpointing` 実行後、下記に Session History が追記されます。
+
+<!--
+# Codex CLI — 深い推論エージェント
+
+**Claude Code から深い推論タスクで呼び出される。**
+
+## 立ち位置
+
+Claude Code（オーケストレーター）から、設計判断・デバッグ分析・トレードオフ評価・コードレビュー・リファクタ方針で呼ばれる。
+
+## 強み
+
+- 深い推論
+- 設計の専門性
+- デバッグ（原因分析）
+- トレードオフの整理
+
+## 担当外
+
+- ファイル編集
+- コマンド実行
+- Git操作
+- 簡単な実装
+
+## 共有コンテキスト
+
+`.claude/` 配下の設計文書・調査・ライブラリ制約・ルールを参照する。
+
+## 呼び出し方法
+
+`codex exec --model gpt-5.3-codex --sandbox read-only --full-auto "{task}"`
+
+## 出力フォーマット
+
+Analysis / Recommendation / Rationale / Risks / Next Steps の構成で返す。
+
+## 言語プロトコル
+
+思考は英語、コードは英語、出力は英語（Claude Code が日本語へ翻訳）。
+
+## 主要原則
+
+決断的・具体的・実行可能・コンテキスト確認を重視。
+
+## CLIログ
+
+Codex/Gemini 入出力は `.claude/logs/cli-tools.jsonl` に記録され、`/checkpointing` 後に Session History が追記される。
+-->

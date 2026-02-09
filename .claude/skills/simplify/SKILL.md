@@ -85,3 +85,16 @@ uv run pytest -v
 - Web search for unclear points
 - Don't change behavior (refactoring only)
 - Run tests after each significant change
+
+<!--
+name: simplify
+description: 既存コードを簡潔に整理するリファクタリング用スキル。
+
+概要: 振る舞いを変えずに可読性を高める。機能は維持し、複雑さを減らす。
+
+ガイド:
+- ライブラリの仕様や制約は保持する
+- 不明点はWeb検索
+- 挙動変更は避ける（リファクタのみ）
+- 大きな変更ごとにテストを実行
+-->

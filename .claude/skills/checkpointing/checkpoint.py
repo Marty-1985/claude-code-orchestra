@@ -580,3 +580,15 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# 日本語訳（コメント）
+# チェックポイントスクリプト: セッションの活動を収集して包括的なチェックポイントを生成する。
+# 使い方:
+#   python checkpoint.py                      # フルチェックポイント（すべて）
+#   python checkpoint.py --since YYYY-MM-DD   # 最近の活動のみ
+# 毎回行う処理:
+# 1. git履歴、CLIログ、Agent Teams活動、設計判断を収集
+# 2. .claude/checkpoints/ にチェックポイントファイルを生成
+# 3. CLAUDE.md をセッション履歴サマリで更新
+# 4. サブエージェント向けのスキル分析プロンプトを出力
+# Data collection などの英語見出しは「データ収集」などの意味。

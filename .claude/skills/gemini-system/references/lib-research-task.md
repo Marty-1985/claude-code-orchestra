@@ -113,3 +113,12 @@ After Gemini researches a library:
 1. Documentation is saved to `.claude/docs/libraries/`
 2. Codex can reference this when reviewing code or refactoring
 3. Ensures library constraints are respected across all agents
+
+<!--
+# ライブラリ調査タスク
+
+Geminiがライブラリを調査した後の流れ：
+1. ドキュメントを `.claude/docs/libraries/` に保存
+2. Codex がレビューやリファクタ時に参照可能
+3. 全エージェントでライブラリ制約を守れるようにする
+-->

@@ -103,3 +103,10 @@ You are a Security Auditor reviewing {scope}.
 - Risk: description
 - Remediation: fix with code example
 ```
+
+<!--
+# エージェント用プロンプト
+
+英語テンプレートは、Codexに渡すプロンプト例やレビュー報告のフォーマットを示す。
+Location=場所、Risk=リスク、Remediation=修正案を意味する。
+-->

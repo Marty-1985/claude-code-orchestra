@@ -283,4 +283,10 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# 日本語訳（コメント）
+# PostToolUse フック: Codex/Gemini CLI の入出力を JSONL に記録する。
+# Bash ツール呼び出しで 'codex' または 'gemini' コマンドを含む場合にトリガー。
+# ログは `.claude/logs/cli-tools.jsonl` に保存。
+# すべてのエージェント（Claude Code/サブエージェント/Codex/Gemini）がログを参照可能。
 >>>>>>> upstream/main

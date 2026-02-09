@@ -143,3 +143,8 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# 日本語訳（コメント）
+# PostToolUse フック: Bash コマンドのエラーを検出して codex-debugger を提案する。
+# post-test-analysis.py より広く、テスト/ビルド以外のBashエラーも対象。
+# codex-debugger サブエージェントへ誘導する。

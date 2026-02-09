@@ -222,3 +222,13 @@ The checkpoint is automatically analyzed to find reusable patterns:
 - ログファイル自体は変更されない（読み取りのみ）
 - スキル提案は必ずユーザーがレビューしてから採用すること
 - Agent Teams のデータは `~/.claude/teams/` と `~/.claude/tasks/` から収集
+
+<!--
+name: checkpointing
+description: セッション中の作業履歴を整理し、チェックポイントとして保存する。
+
+英語で書かれている見出しや説明（Workflow、Checkpoint Format など）は、
+それぞれ「ワークフロー」「チェックポイント形式」という意味。
+全体として、作業内容を `.claude/checkpoints/` にまとめ、
+後から参照できるようにするための手順と注意事項を示している。
+-->

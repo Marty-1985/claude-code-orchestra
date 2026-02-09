@@ -106,3 +106,13 @@ $(cat src/services/llm_client.py)
 - When user says "リファクタリングして", "シンプルにして", "simplify this"
 - Before adding new features to complex code
 - When code review identifies complexity issues
+
+<!--
+# リファクタリングタスク
+
+英語箇条書きの意味:
+- コードが読みづらく/保守しづらいとき
+- ユーザーが「リファクタ」「シンプルにして」と言ったとき
+- 複雑なコードに新機能を足す前
+- レビューで複雑さが指摘されたとき
+-->

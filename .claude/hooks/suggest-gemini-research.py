@@ -102,3 +102,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# 日本語訳（コメント）
+# PreToolUse フック: 調査タスクで Gemini を提案する。
+# Web検索/取得を解析し、広いコンテキストを持つ Gemini CLI の利用を勧める。

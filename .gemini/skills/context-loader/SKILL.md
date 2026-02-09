@@ -70,3 +70,51 @@ When providing research results:
 - Cite sources from web search
 - Note constraints relevant to this project
 - Save comprehensive findings to `.claude/docs/research/`
+
+<!--
+name: context-loader
+description: 毎タスク開始時に `.claude/` からコンテキストを読み込み、Gemini CLI が同じルールと設計判断で動けるようにする。
+
+# Gemini 用コンテキストローダー
+
+## 目的
+
+`.claude/` から共有コンテキストを読み込み、Gemini CLI が Claude Code と同じ知識で調査/分析できるようにする。
+
+## いつ使うか
+
+**常に** — 調査・分析タスクの開始時に実行する。
+
+## ワークフロー
+
+### ステップ1: コーディングルール読み込み
+
+`.claude/rules/` の関連ファイルを読む。
+
+### ステップ2: 設計ドキュメント読み込み
+
+`.claude/docs/DESIGN.md` を読んで設計判断を把握する。
+
+### ステップ3: ライブラリ文書確認
+
+必要に応じて `.claude/docs/libraries/` を読む。
+
+### ステップ4: 調査/分析の実行
+
+読み込んだルール・設計判断・制約に従って調査を行う。
+
+## 主要ルール
+
+1. シンプルさ優先
+2. 型ヒント推奨
+3. pip ではなく uv
+4. セキュリティ重視
+
+## 言語プロトコル
+
+思考/推論は英語、コード例は英語、出力は文書向けの構造化マークダウン。
+
+## 出力ガイドライン
+
+見出しを整理し、必要に応じてコード例を入れ、Web検索の出典を示し、制約を明記し、結果を `.claude/docs/research/` に保存する。
+-->

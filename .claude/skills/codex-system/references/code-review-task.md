@@ -92,3 +92,13 @@ $(git diff HEAD~1)
 - Before committing significant changes
 - When user says "レビューして", "コードを確認して", "review this"
 - Proactively after modifying critical code paths
+
+<!--
+# コードレビュータスク
+
+英語箇条書きの意味:
+- 機能実装を終えた後
+- 重要な変更をコミットする前
+- ユーザーが「レビューして」と依頼したとき
+- 重要なコードパスを変更した直後の予防的レビュー
+-->

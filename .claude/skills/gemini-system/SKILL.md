@@ -178,3 +178,12 @@ See also: `references/lib-research-task.md`
 - **Multimodal**: Native PDF/video/audio processing
 - **Web grounding**: Verified facts with source URLs
 - **Shared context**: Results saved for Claude/Codex to reference
+
+<!--
+name: gemini-system
+description: Gemini CLI を用いた外部情報収集とマルチモーダル処理の指針。
+
+概要: Gemini の役割、使い分け、調査手順、出力保存方法を定義する。
+Google Search による最新情報取得、PDF/動画/音声解析、URL付き根拠提示、
+結果の共有（Claude/Codexが参照）を重視する。
+-->

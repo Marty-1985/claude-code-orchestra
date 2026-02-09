@@ -96,3 +96,12 @@ result = Something.do_thing()
 
 - [公式チュートリアル](https://...)
 - [GitHub Issues](https://...)
+
+<!--
+# {ライブラリ名}
+
+テンプレート内の英語語句（Library Name、Core Features、Troubleshooting、関連ファイルなど）はそれぞれ
+「ライブラリ名」「コア機能」「トラブルシューティング」「関連ファイル」といった意味。
+
+英語のプレースホルダーは、日本語で内容に置き換えて利用する。
+-->

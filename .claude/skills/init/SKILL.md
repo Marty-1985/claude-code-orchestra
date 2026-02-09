@@ -89,3 +89,11 @@ Report to user (in Japanese):
 - Detected tech stack
 - Updated sections
 - Recommended rules to remove (if any)
+
+<!--
+name: init
+description: 初期化スキル。プロジェクトの技術スタックを検出し、CLAUDE.md とルールを整備する。
+
+概要: 既存ルールや設定を読み、プロジェクトに合った初期状態を整える。
+終了時は検出した技術スタック、更新箇所、不要ルールの提案を日本語で報告する。
+-->

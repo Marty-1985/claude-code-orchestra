@@ -98,3 +98,13 @@ Research $ARGUMENTS and create documentation in `.claude/docs/libraries/`.
 - [Official Docs]({url})
 - [GitHub]({url})
 ```
+
+<!--
+name: research-lib
+description: ライブラリ調査を行い、結果をドキュメント化するスキル。
+
+概要: 指定ライブラリの概要、導入方法、主要機能、注意点、使用パターンを調べ、
+`.claude/docs/libraries/` にまとめる。Geminiで外部情報を集め、必要なら補足検証する。
+
+ワークフロー: 調査→要約→テンプレートに沿って記録→参照リンク追加。
+-->

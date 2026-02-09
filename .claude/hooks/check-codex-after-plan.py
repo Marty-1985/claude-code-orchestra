@@ -81,3 +81,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# 日本語訳（コメント）
+# PostToolUse フック: Plan タスク後に Codex レビューを提案する。
+# Task ツール実行後に動き、計画や実装戦略のレビューのために Codex 相談を勧める。

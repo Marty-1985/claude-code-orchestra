@@ -213,3 +213,18 @@ class CodexMCPServer:
 - [Why Model Context Protocol uses JSON-RPC](https://medium.com/@dan.avila7/why-model-context-protocol-uses-json-rpc-64d466112338)
 - [MCP - Protocol Mechanics and Architecture](https://pradeepl.com/blog/model-context-protocol/mcp-protocol-mechanics-and-architecture/)
 - [Model Context Protocol (MCP): Architecture, Components & Workflow](https://www.kubiya.ai/blog/model-context-protocol-mcp-architecture-components-and-workflow)
+
+<!--
+# CLI と MCP の比較（日本語訳）
+
+本ドキュメントは CLI ベースの統合と MCP（Model Context Protocol）の比較を整理した調査。
+
+比較観点:
+- 実装コストと導入のしやすさ
+- セキュリティ/権限管理
+- 拡張性と互換性
+- 実行時の性能や運用の複雑さ
+
+結論として、短期はCLI統合がシンプルで導入しやすい一方、
+長期的な拡張や標準化を考えるならMCPに分がある、という観点を示している。
+-->

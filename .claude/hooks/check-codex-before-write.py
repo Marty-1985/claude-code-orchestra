@@ -290,4 +290,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# 日本語訳（コメント）
+# PreToolUse フック: Write/Edit の前に Codex 相談が推奨されるか確認する。
+# 変更対象ファイルを分析し、設計判断・複雑実装・アーキテクチャ変更時に Codex 相談を促す。
 >>>>>>> upstream/main

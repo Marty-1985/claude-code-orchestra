@@ -123,3 +123,8 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# 日本語訳（コメント）
+# Post-tool フック: Edit/Write の後、Python ファイルに対してフォーマッタと型チェッカーを実行する。
+# Edit または Write がファイルを変更した後にトリガーされる。
+# ruff（フォーマット+リント）と ty（型チェック）を実行する。

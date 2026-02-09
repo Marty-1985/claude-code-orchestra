@@ -55,3 +55,13 @@ When recording, confirm in Japanese:
 - **Code examples**: English
 - **Document content**: English (technical terms) + Japanese (descriptions OK)
 - **User communication**: Japanese
+
+<!--
+name: design-tracker
+description: 会話から設計判断を抽出して DESIGN.md を更新するスキル。
+
+概要: 新しい意思決定や変更点を記録し、Changelog に日付付きで追記する。
+対象セクションの対応表と記録フォーマットを提示する。
+
+言語: 思考は英語、コード例も英語。文書は技術用語英語＋説明日本語可。ユーザーへの報告は日本語。
+-->

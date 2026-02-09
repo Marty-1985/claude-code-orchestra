@@ -83,3 +83,11 @@ After updating, report to user (in Japanese):
 - Which libraries were updated
 - Significant changes found
 - Any action items for the project
+
+<!--
+name: update-lib-docs
+description: ライブラリドキュメントを更新するスキル。
+
+概要: 既存の `.claude/docs/libraries/` を確認し、最新情報を調査して更新する。
+更新後は、更新対象・重要な変更点・プロジェクトへのアクションを日本語で報告する。
+-->
