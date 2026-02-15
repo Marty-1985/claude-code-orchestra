@@ -1,12 +1,6 @@
 ---
 name: gemini-system
-description: |
-  PROACTIVELY consult Gemini CLI for external web research and multimodal
-  data processing. Gemini excels at: Google Search grounding for latest
-  information, video/audio/PDF analysis, and library/API documentation lookup.
-  NOTE: Codebase analysis is handled by Claude directly (1M context).
-  Explicit triggers: "research", "investigate", "analyze video/audio/PDF",
-  "latest docs", "library research".
+description:  PROACTIVELY consult Gemini CLI for external web research and multimodal data processing. Gemini excels at: Google Search grounding for latest information, video/audio/PDF analysis, and library/API documentation lookup. NOTE: Codebase analysis is handled by Claude directly (1M context). Explicit triggers: "research", "investigate", "analyze video/audio/PDF", "latest docs", "library research".
 metadata:
   short-description: Claude Code ↔ Gemini CLI collaboration (external research & multimodal)
 ---

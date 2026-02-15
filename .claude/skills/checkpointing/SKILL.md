@@ -1,9 +1,6 @@
 ---
 name: checkpointing
-description: |
-  Save full session context: git history, CLI consultations, Agent Teams activity,
-  and discover reusable skill patterns — all in one run. No flags needed.
-  Run at session end, after major milestones, or when you want to capture learnings.
+description: Save full session context: git history, CLI consultations, Agent Teams activity, and discover reusable skill patterns — all in one run. No flags needed. Run at session end, after major milestones, or when you want to capture learnings.
 metadata:
   short-description: Full session checkpoint with skill pattern discovery
 ---

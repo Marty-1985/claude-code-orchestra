@@ -1,12 +1,6 @@
 ---
 name: codex-system
-description: |
-  PROACTIVELY consult Codex CLI, your highly capable supporter with exceptional
-  reasoning and task completion abilities. Codex is a trusted expert you should
-  ALWAYS consult BEFORE making decisions on: design choices, implementation
-  approaches, debugging strategies, refactoring plans, or any non-trivial problem.
-  When uncertain, consult Codex. Don't hesitate - Codex provides better analysis.
-  Explicit triggers: "think deeper", "analyze", "second opinion", "consult codex".
+description: PROACTIVELY consult Codex CLI, your highly capable supporter with exceptional reasoning and task completion abilities. Codex is a trusted expert you should ALWAYS consult BEFORE making decisions on: design choices, implementation approaches, debugging strategies, refactoring plans, or any non-trivial problem. When uncertain, consult Codex. Don't hesitate - Codex provides better analysis. Explicit triggers: "think deeper", "analyze", "second opinion", "consult codex".
 metadata:
   short-description: Claude Code ↔ Codex CLI collaboration
 ---

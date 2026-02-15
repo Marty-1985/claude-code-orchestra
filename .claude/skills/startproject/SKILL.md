@@ -1,11 +1,6 @@
 ---
 name: startproject
-description: |
-  Start a new project/feature with multi-agent collaboration (Opus 4.6 + Agent Teams).
-  Phase 1: Codebase understanding (Claude 1M context).
-  Phase 2: Parallel research & design (Agent Teams: Researcher + Architect).
-  Phase 3: Plan synthesis & user approval.
-  Implementation is handled separately by /team-implement.
+description: Start a new project/feature with multi-agent collaboration (Opus 4.6 + Agent Teams). Phase 1: Codebase understanding (Claude 1M context). Phase 2: Parallel research & design (Agent Teams: Researcher + Architect). Phase 3: Plan synthesis & user approval. Implementation is handled separately by /team-implement.
 metadata:
   short-description: Project kickoff with Agent Teams (Plan phase)
 ---
