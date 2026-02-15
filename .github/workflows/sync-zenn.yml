@@ -1,0 +1,37 @@
+name: Sync to Zenn
+
+on:
+  push:
+    branches: [main]
+    paths: ['articles/blog/**']
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout Zenn repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/zenn-content
+          token: ${{ secrets.ZENN_REPO_TOKEN }}
+          path: zenn-content
+
+      - name: Sync articles
+        run: |
+          mkdir -p zenn-content/articles
+          for file in articles/blog/*.md; do
+            filename=$(basename "$file")
+            slug="${filename%.md}"
+            cp "$file" "zenn-content/articles/${slug}.md"
+          done
+
+      - name: Push to Zenn repo
+        working-directory: zenn-content
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "Sync articles from main repo"
+          git push
