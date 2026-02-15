@@ -1,0 +1,672 @@
+{
+  "id": "workflow-1771141113401",
+  "name": "claude-code-orchestra-v2",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "start-1",
+      "type": "start",
+      "name": "start-1",
+      "position": {
+        "x": 50,
+        "y": 450
+      },
+      "data": {
+        "label": "Start"
+      }
+    },
+    {
+      "id": "phase1-read",
+      "type": "subAgent",
+      "name": "phase1-read",
+      "position": {
+        "x": 280,
+        "y": 300
+      },
+      "data": {
+        "description": "Phase 1-1: コードベース読解（Claude Lead、1Mコンテキスト）",
+        "prompt": "Phase 1 Step 1: コードベース読解（Claude Lead）\n\nExplore agent / Glob / Grep / Read を使い、コードベースを直接読む：\n- ディレクトリ構造とアーキテクチャ\n- 主要モジュールと責務\n- 既存パターン・規約\n- 技術スタック・依存関係\n- テスト構造\n\n※ Opus 4.6 は 1M コンテキストを持つため、Gemini への委託は不要。Claude が直接読む。",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase1-requirements",
+      "type": "subAgent",
+      "name": "phase1-requirements",
+      "position": {
+        "x": 280,
+        "y": 550
+      },
+      "data": {
+        "description": "Phase 1-2: ユーザーとの要件ヒアリング（日本語で対話）",
+        "prompt": "Phase 1 Step 2: 要件ヒアリング（Claude Lead）\n\nユーザーに質問して要件を明確化（日本語で）：\n1. 目的: 何を達成したいですか？\n2. スコープ: 含めるもの・除外するものは？\n3. 技術的要件: 特定のライブラリ、制約は？\n4. 成功基準: 完了の判断基準は？\n5. 最終デザイン: どのような形にしたいですか？",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase1-brief",
+      "type": "subAgent",
+      "name": "phase1-brief",
+      "position": {
+        "x": 560,
+        "y": 450
+      },
+      "data": {
+        "description": "Phase 1-3: プロジェクト概要書を作成（Phase 2 への引き継ぎ資料）",
+        "prompt": "Phase 1 Step 3: プロジェクト概要書作成\n\nコードベース理解 + 要件を統合して「Project Brief」を作成する：\n\n## Project Brief: {feature}\n### Current State\n- Architecture: 既存アーキテクチャの要約\n- Relevant code: 関連するファイルとモジュール\n- Patterns: 踏襲すべき既存パターン\n### Goal\nユーザーの目標（1-2文）\n### Scope\n- Include / Exclude\n### Constraints\n- 技術的制約、ライブラリ要件\n### Success Criteria\n- 測定可能な基準\n\nこの概要書を Phase 2 の Researcher と Architect に共有する。",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase2-research",
+      "type": "subAgent",
+      "name": "phase2-research",
+      "position": {
+        "x": 870,
+        "y": 280
+      },
+      "data": {
+        "description": "Phase 2: Researcher（Agent Teams）— Gemini CLI で外部調査。Architect と双方向リアルタイム通信あり",
+        "prompt": "Phase 2: Researcher（Agent Teams チームメイト）\n\n【重要】Architect チームメイトと双方向リアルタイム通信を行う。\n単独作業ではなく、相互に依頼・フィードバック・調整しながら進める。\n\n例：\n- Researcher → Architect:「httpxのコネクションプール上限は100」\n- Architect → Researcher:「HTTP/2マルチプレクシングに対応しているか調べて」\n- Researcher → Architect:「httpx[http2]で対応可能、h2依存が必要」\n- Architect → Researcher:「了解、HTTP/2対応でAPI設計を更新した」\n\n【Gemini CLI で調査する内容】\n1. ライブラリ・ツール: 使い方、制約、ベストプラクティス\n2. 最新ドキュメント・API仕様\n3. よくある落とし穴・アンチパターン\n4. 類似実装・リファレンスアーキテクチャ\n\n呼び出し方: gemini -p \"{question}\" 2>/dev/null\n\n【成果物】\n- .claude/docs/research/{feature}.md に調査結果を保存\n- .claude/docs/libraries/{library}.md にライブラリ制約を保存",
+        "model": "sonnet",
+        "color": "green",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase2-architect",
+      "type": "subAgent",
+      "name": "phase2-architect",
+      "position": {
+        "x": 870,
+        "y": 600
+      },
+      "data": {
+        "description": "Phase 2: Architect（Agent Teams）— Codex CLI で設計。Researcher と双方向リアルタイム通信あり",
+        "prompt": "Phase 2: Architect（Agent Teams チームメイト）\n\n【重要】Researcher チームメイトと双方向リアルタイム通信を行う。\n単独作業ではなく、相互に依頼・フィードバック・調整しながら進める。\nResearcher の発見が設計を変え、設計の要求が新たな調査を生む反復プロセス。\n\n【Codex CLI で設計する内容】\n1. アーキテクチャ設計（モジュール、インターフェース、データフロー）\n2. パターン選定（既存コードベースの規約を踏襲）\n3. 実装タスクへの分解（依存関係付き）\n4. リスク特定と軽減策\n\n呼び出し方: codex exec --model gpt-5.3-codex --sandbox read-only --full-auto \"{question}\" 2>/dev/null\n\n【成果物】\n- .claude/docs/DESIGN.md にアーキテクチャ決定を記録",
+        "model": "sonnet",
+        "color": "purple",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase3-synthesize",
+      "type": "subAgent",
+      "name": "phase3-synthesize",
+      "position": {
+        "x": 1170,
+        "y": 450
+      },
+      "data": {
+        "description": "Phase 3-1: 調査結果と設計を統合し、実装計画を作成（Claude Lead）",
+        "prompt": "Phase 3 Step 1-2: 統合 & 計画作成（Claude Lead）\n\n【読み込む成果物】\n- .claude/docs/research/{feature}.md（Researcher の調査結果）\n- .claude/docs/libraries/{library}.md（ライブラリ制約）\n- .claude/docs/DESIGN.md（Architect のアーキテクチャ決定）\n\n【計画作成】\n- タスクリストを依存関係付きで作成\n- ファイル所有権の割当案を作成\n- 品質ゲートを定義\n\n【CLAUDE.md 更新】\nプロジェクトコンテキストを CLAUDE.md に追記し、セッション横断で永続化：\n- Goal、Key files、Dependencies\n- Architecture decisions（Architect から）\n- Library constraints（Researcher から）\n- Key decisions with rationale",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase3-present",
+      "type": "subAgent",
+      "name": "phase3-present",
+      "position": {
+        "x": 1450,
+        "y": 450
+      },
+      "data": {
+        "description": "Phase 3-2: ユーザーに計画を日本語で提示",
+        "prompt": "Phase 3 Step 4: ユーザーへの計画提示（日本語）\n\n以下の構成で計画を提示する：\n- コードベース分析（3-5ポイント）\n- 調査結果（Researcher の主要発見）\n- 設計方針（Architect の主要決定と理由）\n- タスクリスト（依存関係付き）\n- リスクと注意点\n- 次のステップ",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "ask-approval",
+      "type": "askUserQuestion",
+      "name": "ask-approval",
+      "position": {
+        "x": 1730,
+        "y": 450
+      },
+      "data": {
+        "questionText": "この計画で進めてよろしいですか？",
+        "options": [
+          {
+            "label": "承認",
+            "description": "/team-implement で並列実装を開始する"
+          },
+          {
+            "label": "修正が必要",
+            "description": "フィードバックを反映して計画を修正する"
+          },
+          {
+            "label": "中止",
+            "description": "プロジェクトを中止する"
+          }
+        ],
+        "outputPorts": 3
+      }
+    },
+    {
+      "id": "revise-plan",
+      "type": "subAgent",
+      "name": "revise-plan",
+      "position": {
+        "x": 1730,
+        "y": 700
+      },
+      "data": {
+        "description": "ユーザーのフィードバックを反映して計画を修正し再提示",
+        "prompt": "計画修正ループ\n\nユーザーのフィードバックに基づいて計画を修正する：\n1. DESIGN.md とタスクリストを再読み込み\n2. フィードバックを反映して修正\n3. CLAUDE.md を更新\n4. 修正版を日本語で再提示\n\nユーザーが「承認」するまでこのループを繰り返す。",
+        "model": "opus",
+        "color": "orange",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase4-design-team",
+      "type": "subAgent",
+      "name": "phase4-design-team",
+      "position": {
+        "x": 2030,
+        "y": 200
+      },
+      "data": {
+        "description": "Phase 4-1: チーム構成設計 — ワークストリーム分析、ファイル所有権割当、パターン選定",
+        "prompt": "Phase 4 Step 1: チーム構成設計（Claude Lead）\n\n【ワークストリーム分析】\nタスクリストから並列化可能なワークストリームを特定する。\n\n【チームパターン選定】\n- Module-based（推奨）: モジュール単位で分担\n- Layer-based: データ層/ビジネス層/インターフェース層で分担\n- Feature-based: 機能単位で分担\n\n【ファイル所有権の排他割当】\n各 Teammate が異なるファイルセットを所有。\n2つの Teammate が同じファイルを編集 → 上書きリスク（アンチパターン）\n\n【Teammate 数の決定】\n動的に決定: タスク数とモジュール分割に応じて Implementer 数を変える。\nTeammate あたり 5-6 タスクが目安。\n\n【Tester の判断】\nTester は推奨だが任意。小規模変更では省略可能。",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase4-impl-a",
+      "type": "subAgent",
+      "name": "phase4-impl-a",
+      "position": {
+        "x": 2330,
+        "y": 50
+      },
+      "data": {
+        "description": "Implementer A（Agent Teams）— 排他的ファイル所有権を持つモジュール担当者",
+        "prompt": "Implementer A（Agent Teams チームメイト）\n\n【コンテキスト読み込み】\n- CLAUDE.md（プロジェクトコンテキスト）\n- .claude/docs/DESIGN.md（アーキテクチャ）\n- .claude/docs/libraries/（ライブラリ制約）\n\n【ルール】\n- 自分の所有ファイルのみ編集（排他的所有権）\n- 既存コードベースのパターンを踏襲\n- 全関数に型ヒントを記述\n- ファイル変更ごとに ruff check を実行\n- インターフェース変更が必要な場合は他の Teammate に通信\n- タスク完了時にタスクリストを更新",
+        "model": "sonnet",
+        "color": "cyan",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase4-impl-b",
+      "type": "subAgent",
+      "name": "phase4-impl-b",
+      "position": {
+        "x": 2330,
+        "y": 250
+      },
+      "data": {
+        "description": "Implementer B（Agent Teams）— 排他的ファイル所有権を持つモジュール担当者（動的に増減可能）",
+        "prompt": "Implementer B（Agent Teams チームメイト）\n\n※ 実際のチーム構成では Implementer の数はタスク量に応じて動的に決まる。\n  この図では2名だが、モジュール数に応じて3名以上になることもある。\n\n【ルール】Implementer A と同一。\n自分の所有ファイルのみ編集し、他 Teammate と通信して調整する。",
+        "model": "sonnet",
+        "color": "cyan",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase4-tester",
+      "type": "subAgent",
+      "name": "phase4-tester",
+      "position": {
+        "x": 2330,
+        "y": 450
+      },
+      "data": {
+        "description": "Tester（Agent Teams、任意だが推奨）— Implementer の完了に合わせて随時テストを作成",
+        "prompt": "Tester（Agent Teams チームメイト — 任意だが推奨）\n\n【役割】\nImplementer がモジュールを完了するたびにテストを作成する。\nTDD が可能な場合はテストスタブを先に書く。\n\n【タスク】\n- 各モジュールのテスト作成\n- uv run pytest を各テストファイル作成後に実行\n- 失敗テストは該当 Implementer に報告（チームメイト通信）\n- AAA パターンと .claude/rules/testing.md に従う\n\nカバレッジ目標: 80%以上",
+        "model": "sonnet",
+        "color": "yellow",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase4-monitor",
+      "type": "subAgent",
+      "name": "phase4-monitor",
+      "position": {
+        "x": 2330,
+        "y": 650
+      },
+      "data": {
+        "description": "Lead 監督（実装はしない）— 進捗監視、ファイル競合検出、介入トリガー対応",
+        "prompt": "Phase 4 Step 3: Lead 監督（Claude Lead — 実装はしない）\n\n【監視項目】\n- タスクリストの進捗確認\n- 各 Teammate の出力確認\n- ファイル競合がないか確認\n- 行き詰まっている Teammate がいないか確認\n\n【介入トリガー】\n- Teammate が長時間タスクを進めない → メッセージで確認、再指示\n- ファイル競合が発生 → 所有権を再配分\n- テストが失敗し続ける → 関連 Implementer にメッセージ\n- 想定外の技術的問題 → Codex にサブエージェント経由で相談\n\n※ Lead は自ら実装コードを書かず、監督・調整に専念する。",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase4-integrate",
+      "type": "subAgent",
+      "name": "phase4-integrate",
+      "position": {
+        "x": 2650,
+        "y": 350
+      },
+      "data": {
+        "description": "Phase 4-4: 統合検証 — ruff / ty / pytest を実行し統合レポートを作成",
+        "prompt": "Phase 4 Step 4: 統合検証\n\n【品質チェック実行】\n- uv run ruff check .\n- uv run ruff format --check .\n- uv run ty check src/\n- uv run pytest -v\n（または poe all）\n\n【統合レポート作成】\n- 完了タスク一覧\n- 品質チェック結果（ruff ✓/✗、ty ✓/✗、pytest ✓/✗）\n- カバレッジ %\n- 次のステップ: /team-review で並列レビュー\n\n【チームクリーンアップ】\n全タスク完了後、Agent Team を解散する。",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase5-gather-diff",
+      "type": "subAgent",
+      "name": "phase5-gather-diff",
+      "position": {
+        "x": 2950,
+        "y": 350
+      },
+      "data": {
+        "description": "Phase 5-1: git diff で変更差分を収集し、レビュー対象ファイルを特定",
+        "prompt": "Phase 5 Step 1: 変更差分の収集\n\n以下のコマンドでレビュー対象を特定する：\n- git diff main...HEAD（全変更差分）\n- git diff main...HEAD --name-only（変更ファイル一覧）\n- git log main..HEAD --oneline（コミット履歴）\n\n変更ファイル一覧を Phase 5 の各レビュアーに渡す。",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "review-security",
+      "type": "subAgent",
+      "name": "review-security",
+      "position": {
+        "x": 3250,
+        "y": 100
+      },
+      "data": {
+        "description": "Security Reviewer（Agent Teams）— 脆弱性、インジェクション、認証、データ漏洩をチェック",
+        "prompt": "Security Reviewer（Agent Teams チームメイト）\n\n【チェック項目】\n- ハードコードされた秘密情報・認証情報\n- SQLインジェクション、XSS、コマンドインジェクション\n- 入力バリデーションの欠落\n- 認証・認可の問題\n- ログやエラーメッセージでの機密情報漏洩\n- 依存ライブラリの脆弱性\n\n参照: .claude/rules/security.md\n\n【レポート形式】\n各発見事項: 重大度（Critical/High/Medium/Low）、ファイル:行番号、説明、推奨修正\n\n【成果物】\n.claude/docs/research/review-security-{feature}.md に保存",
+        "model": "sonnet",
+        "color": "red",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "review-quality",
+      "type": "subAgent",
+      "name": "review-quality",
+      "position": {
+        "x": 3250,
+        "y": 350
+      },
+      "data": {
+        "description": "Quality Reviewer（Agent Teams）— コーディング原則、パターン、型ヒント、命名を検査。Codex CLI で深い分析",
+        "prompt": "Quality Reviewer（Agent Teams チームメイト）\n\n【チェック項目】\n- .claude/rules/coding-principles.md への準拠\n- 単一責任の原則違反\n- 深いネスト（早期リターンすべき箇所）\n- 型ヒントの欠落\n- マジックナンバー\n- 命名の明確さ\n- 関数の長さ（目標 < 20行）\n- ライブラリ制約違反（.claude/docs/libraries/）\n\n【Codex CLI 活用】\n複雑なロジックの分析には Codex を使用：\ncodex exec --model gpt-5.3-codex --sandbox read-only --full-auto \"{question}\" 2>/dev/null\n\n【成果物】\n.claude/docs/research/review-quality-{feature}.md に保存",
+        "model": "sonnet",
+        "color": "purple",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "review-tests",
+      "type": "subAgent",
+      "name": "review-tests",
+      "position": {
+        "x": 3250,
+        "y": 600
+      },
+      "data": {
+        "description": "Test Reviewer（Agent Teams）— カバレッジ、AAA パターン、エッジケース、モック品質を検査",
+        "prompt": "Test Reviewer（Agent Teams チームメイト）\n\n【カバレッジ測定】\nuv run pytest --cov=src --cov-report=term-missing\n\n【チェック項目】\n- ハッピーパスがテストされているか？\n- エラーケースがカバーされているか？\n- 境界値がテストされているか？\n- エッジケースが処理されているか？\n- 外部依存が適切にモックされているか？\n- AAA パターンに従っているか？\n- テストが独立しているか（順序依存なし）？\n\n参照: .claude/rules/testing.md\n\n【成果物】\n.claude/docs/research/review-tests-{feature}.md に保存",
+        "model": "sonnet",
+        "color": "yellow",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "phase5-synthesize",
+      "type": "subAgent",
+      "name": "phase5-synthesize",
+      "position": {
+        "x": 3550,
+        "y": 350
+      },
+      "data": {
+        "description": "Phase 5-3: レビュー結果を統合し、優先度付けして日本語でレポート",
+        "prompt": "Phase 5 Step 3-4: レビュー統合 & ユーザー報告（Claude Lead）\n\n【読み込む成果物】\n- .claude/docs/research/review-security-{feature}.md\n- .claude/docs/research/review-quality-{feature}.md\n- .claude/docs/research/review-tests-{feature}.md\n\n【優先度付け】\n- Critical: セキュリティ脆弱性、データ損失リスク → マージ前に必ず修正\n- High: バグ、重要テストの欠落、型エラー → マージ前に修正すべき\n- Medium: コード品質、命名、パターン → 時間があれば修正\n- Low: スタイル、軽微な改善 → 後日対応\n\n【ユーザーへの報告（日本語）】\n- サマリー（セキュリティ/品質/カバレッジの件数）\n- Critical/High の発見事項（詳細）\n- 推奨アクション（優先度順）\n- Medium/Low の概要（詳細はレポート参照）",
+        "model": "opus",
+        "color": "blue",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "ask-fix",
+      "type": "askUserQuestion",
+      "name": "ask-fix",
+      "position": {
+        "x": 3850,
+        "y": 350
+      },
+      "data": {
+        "questionText": "レビュー結果に基づいて修正を行いますか？",
+        "options": [
+          {
+            "label": "修正する",
+            "description": "Critical/High の発見事項を修正し再検証する"
+          },
+          {
+            "label": "完了",
+            "description": "現状で完了とする"
+          }
+        ],
+        "outputPorts": 2
+      }
+    },
+    {
+      "id": "fix-issues",
+      "type": "subAgent",
+      "name": "fix-issues",
+      "position": {
+        "x": 4150,
+        "y": 200
+      },
+      "data": {
+        "description": "Critical/High の発見事項を修正し、品質チェックを再実行",
+        "prompt": "レビュー発見事項の修正\n\n【修正対象】\n.claude/docs/research/review-*.md から Critical と High の発見事項を読み込み、修正する。\n\n【修正後の再検証】\n- uv run ruff check .\n- uv run ruff format --check .\n- uv run ty check src/\n- uv run pytest -v\n\n修正結果をユーザーに報告する。",
+        "model": "opus",
+        "color": "orange",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "re-review",
+      "type": "subAgent",
+      "name": "re-review",
+      "position": {
+        "x": 4150,
+        "y": 450
+      },
+      "data": {
+        "description": "修正後の再レビュー — 修正が新たな問題を生んでいないか確認",
+        "prompt": "修正後の再レビュー\n\n修正された箇所を対象に簡易レビューを実行する：\n- 修正が新たなセキュリティ問題を生んでいないか\n- 修正がテストを壊していないか\n- 品質チェック（ruff/ty/pytest）が全てパスするか\n\n問題がなければ完了。\n問題があれば再度修正を推奨。",
+        "model": "sonnet",
+        "color": "orange",
+        "outputPorts": 1
+      }
+    },
+    {
+      "id": "end-success",
+      "type": "end",
+      "name": "end-success",
+      "position": {
+        "x": 4450,
+        "y": 350
+      },
+      "data": {
+        "label": "Complete"
+      }
+    },
+    {
+      "id": "end-cancel",
+      "type": "end",
+      "name": "end-cancel",
+      "position": {
+        "x": 2030,
+        "y": 500
+      },
+      "data": {
+        "label": "Cancelled"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "start-1",
+      "to": "phase1-read",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c2",
+      "from": "start-1",
+      "to": "phase1-requirements",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c3",
+      "from": "phase1-read",
+      "to": "phase1-brief",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c4",
+      "from": "phase1-requirements",
+      "to": "phase1-brief",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c5",
+      "from": "phase1-brief",
+      "to": "phase2-research",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c6",
+      "from": "phase1-brief",
+      "to": "phase2-architect",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c7",
+      "from": "phase2-research",
+      "to": "phase3-synthesize",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c8",
+      "from": "phase2-architect",
+      "to": "phase3-synthesize",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c9",
+      "from": "phase3-synthesize",
+      "to": "phase3-present",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c10",
+      "from": "phase3-present",
+      "to": "ask-approval",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c11",
+      "from": "ask-approval",
+      "to": "phase4-design-team",
+      "fromPort": "branch-0",
+      "toPort": "input"
+    },
+    {
+      "id": "c12",
+      "from": "ask-approval",
+      "to": "revise-plan",
+      "fromPort": "branch-1",
+      "toPort": "input"
+    },
+    {
+      "id": "c13",
+      "from": "ask-approval",
+      "to": "end-cancel",
+      "fromPort": "branch-2",
+      "toPort": "input"
+    },
+    {
+      "id": "c14",
+      "from": "revise-plan",
+      "to": "ask-approval",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c15",
+      "from": "phase4-design-team",
+      "to": "phase4-impl-a",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c16",
+      "from": "phase4-design-team",
+      "to": "phase4-impl-b",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c17",
+      "from": "phase4-design-team",
+      "to": "phase4-tester",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c18",
+      "from": "phase4-design-team",
+      "to": "phase4-monitor",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c19",
+      "from": "phase4-impl-a",
+      "to": "phase4-integrate",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c20",
+      "from": "phase4-impl-b",
+      "to": "phase4-integrate",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c21",
+      "from": "phase4-tester",
+      "to": "phase4-integrate",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c22",
+      "from": "phase4-monitor",
+      "to": "phase4-integrate",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c23",
+      "from": "phase4-integrate",
+      "to": "phase5-gather-diff",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c24",
+      "from": "phase5-gather-diff",
+      "to": "review-security",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c25",
+      "from": "phase5-gather-diff",
+      "to": "review-quality",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c26",
+      "from": "phase5-gather-diff",
+      "to": "review-tests",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c27",
+      "from": "review-security",
+      "to": "phase5-synthesize",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c28",
+      "from": "review-quality",
+      "to": "phase5-synthesize",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c29",
+      "from": "review-tests",
+      "to": "phase5-synthesize",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c30",
+      "from": "phase5-synthesize",
+      "to": "ask-fix",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c31",
+      "from": "ask-fix",
+      "to": "fix-issues",
+      "fromPort": "branch-0",
+      "toPort": "input"
+    },
+    {
+      "id": "c32",
+      "from": "ask-fix",
+      "to": "end-success",
+      "fromPort": "branch-1",
+      "toPort": "input"
+    },
+    {
+      "id": "c33",
+      "from": "fix-issues",
+      "to": "re-review",
+      "fromPort": "output",
+      "toPort": "input"
+    },
+    {
+      "id": "c34",
+      "from": "re-review",
+      "to": "end-success",
+      "fromPort": "output",
+      "toPort": "input"
+    }
+  ],
+  "createdAt": "2026-02-15T07:38:33.401Z",
+  "updatedAt": "2026-02-15T07:38:33.401Z",
+  "subAgentFlows": []
+}
